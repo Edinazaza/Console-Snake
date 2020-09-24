@@ -35,9 +35,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="test.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="FIELD.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
