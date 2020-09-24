@@ -5,10 +5,8 @@
 #include "CInterface.h"
 #include <conio.h>
 
-// Переименовал функции для поля
-// Полностью изменил змею
-
 std::vector<size_t> records;
+
 int main()
 {
 	InvisibleCursor();

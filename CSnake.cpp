@@ -144,100 +144,101 @@ void Head::SetCoordinate(const char coord, const int change, field& area)
 Tail::Tail() {};
 
 Tail::Tail(field& area, size_t i)
-	{
-		direction = 0;
-		area[area.size() / 2][area.size() / 2] = '#';
-		X = (area.size() / 2) + i, Y = (area.size() / 2);
-	}
+{
+	direction = 0;
+	area[area.size() / 2][area.size() / 2] = '#';
+	X = (area.size() / 2) + i, Y = (area.size() / 2);
+}
 
 Tail::Tail(const uint16_t x, const uint16_t y, const uint16_t dir)
-	{
-		X = x, Y = y, direction = dir;
-	}
+{
+	X = x, Y = y, direction = dir;
+}
 
 void Tail::SetDirection(uint16_t d)
-	{
-		direction = d;
-	}
+{
+	direction = d;
+}
 
 void Tail::SetCoordinate(const char coord, const int change, field& area)
-	{
-		BodyPart::SetCoordinate(coord, change, area);
-		area[X][Y] = '#';
-	}
+{
+	BodyPart::SetCoordinate(coord, change, area);
+	area[X][Y] = '#';
+}
 
+// SNAKE
 
 Snake::Snake(field& area) : head_(area)
-	{
-		body_.push_back(Tail(area, sizeSnake_++));
-	}
+{
+	body_.push_back(Tail(area, sizeSnake_++));
+}
 
 void Snake::MoveSnake(field& area)
-	{
-		head_.MoveForward(area);
-		if (head_.GetIsEat()) {
-			SpawnBP(area);
-		}
-		else {
-			for (size_t i = 0; i < body_.size(); ++i) {
-				body_[i].MoveForward(area);
-			}
-		}
-
-		for (int i = body_.size() - 1; i >= 0; --i) {
-			if (i == 0) {
-				if (body_[i].GetDirection() != head_.GetDirection()) {
-					body_[0].SetDirection(head_.GetDirection());
-				}
-			}
-			else if (body_[i].GetDirection() != body_[i - 1].GetDirection()) {
-				body_[i].SetDirection(body_[i - 1].GetDirection());
-			}
-		}
+{
+	head_.MoveForward(area);
+	if (head_.GetIsEat()) {
+		SpawnBP(area);
 	}
-
-void Snake::TurnRight()
-	{
-		head_.TurnRight();
-	}
-
-void Snake::TurnLeft()
-	{
-		head_.TurnLeft();
-	}
-
-uint16_t Snake::GetCount() const
-	{
-		return head_.GetCount();
-	}
-
-uint16_t Snake::GetDirection()
-	{
-		return head_.GetDirection();
-	}
-
-bool Snake::isEat() const
-	{
-		return head_.GetIsEat();
-	}
-
-bool Snake::isDead() const
-	{
-		return head_.GetIsDead();
-	}
-
-void Snake::SpawnBP(field& area)
-	{
-		Tail bp(body_[body_.size() - 1].GetX(),
-			body_[body_.size() - 1].GetY(),
-			body_[body_.size() - 1].GetDirection());
+	else {
 		for (size_t i = 0; i < body_.size(); ++i) {
 			body_[i].MoveForward(area);
 		}
-		body_.push_back(bp);
 	}
 
+	for (int i = body_.size() - 1; i >= 0; --i) {
+		if (i == 0) {
+			if (body_[i].GetDirection() != head_.GetDirection()) {
+				body_[0].SetDirection(head_.GetDirection());
+			}
+		}
+		else if (body_[i].GetDirection() != body_[i - 1].GetDirection()) {
+			body_[i].SetDirection(body_[i - 1].GetDirection());
+		}
+	}
+}
 
+void Snake::TurnRight()
+{
+	head_.TurnRight();
+}
+
+void Snake::TurnLeft()
+{
+	head_.TurnLeft();
+}
+
+uint16_t Snake::GetCount() const
+{
+	return head_.GetCount();
+}
+
+uint16_t Snake::GetDirection()
+{
+	return head_.GetDirection();
+}
+
+bool Snake::isEat() const
+{
+	return head_.GetIsEat();
+}
+
+bool Snake::isDead() const
+{
+	return head_.GetIsDead();
+}
+
+void Snake::SpawnBP(field& area)
+{
+	Tail bp(body_[body_.size() - 1].GetX(),
+		body_[body_.size() - 1].GetY(),
+		body_[body_.size() - 1].GetDirection());
+	for (size_t i = 0; i < body_.size(); ++i) {
+		body_[i].MoveForward(area);
+	}
+	body_.push_back(bp);
+}
+
+// COMAND FOR SNAKE
 
 void CatchCommand(Snake& player, char chr)
 {

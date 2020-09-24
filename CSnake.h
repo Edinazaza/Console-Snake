@@ -10,7 +10,6 @@ public:
 
 	virtual void TurnRight();
 
-
 	virtual uint16_t GetX() const;
 
 	virtual uint16_t GetY() const;
@@ -27,17 +26,16 @@ protected:
 	virtual void SetCoordinate(const char coord, const int change, field& area);
 };
 
-
 class Head : public BodyPart
 {
 public:
 	Head();
+
 	Head(field& area);
 
 	uint16_t GetCount() const;
 
 	bool GetIsDead() const;
-
 
 	bool GetIsEat() const;
 
@@ -70,7 +68,6 @@ private:
 	void SetCoordinate(const char coord, const int change, field& area) override;
 };
 
-
 class Snake
 {
 public:
@@ -96,8 +93,6 @@ private:
 	std::vector<Tail> body_;
 
 	void SpawnBP(field& area);
-
 };
-
 
 void CatchCommand(Snake& player, char chr);
