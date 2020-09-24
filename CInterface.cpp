@@ -20,12 +20,11 @@ void ChooseDifficulty(const char dflvl)
 		Sleep(15);
 		break;
 	case '`':
-		//Sleep(0);
+		//Sleep(0); 
 		break;
-	case '*':
+	case '*': // console command for dev
 		std::cin >> cmd;
-		if (cmd == "kill")
-		{
+		if (cmd == "kill") {
 			system("cls");
 			ChangeColour(4);
 			MessageBeep(MB_OK);
@@ -49,6 +48,7 @@ void PrintGreeting(std::vector<size_t>& records)
 	"Developed by K.N and B.F and Nikita", "          Here was Nikita          ", "           I wanna pitsa           ",
 	"          ANTISLEEP CLUB           ", "    Development lasted 10 years    ", "           Python 4 gays           " };
 	ChangeColour(2);
+
 	std::cout
 		<< std::setw(71) << " ####   ##  ##   ####   ##  ##  #####" << std::endl
 		<< std::setw(71) << "##      ### ##  ##  ##  ## ##   ##   " << std::endl
@@ -67,12 +67,13 @@ void PrintGreeting(std::vector<size_t>& records)
 		<< std::setw(71) << "|  Press '3' to choose hard level   |" << std::endl
 		<< std::setw(71) << "#===================================#" << std::endl;
 	std::cout << std::endl << std::setw(58) << "Version 0.19b" << std::endl;
+
 	srand(static_cast<uint16_t>(time(NULL)));
 	size_t res = rand() % 17;
 	std::cout << std::endl << std::setw(70) << phrases[res] << std::endl;
 	sort(records.begin(), records.end());
-	if (!records.empty())
-	{
+
+	if (!records.empty()) {
 		size_t count = 1;
 		std::cout << std::endl;
 		ChangeColour(6);
@@ -82,12 +83,10 @@ void PrintGreeting(std::vector<size_t>& records)
 		for (auto it = records.rbegin(); it != records.rend(); ++it, ++count)
 		{
 			if (count >= 10) { break; }
-			if (*it < 9)
-			{
+			if (*it < 9) {
 				std::cout << std::setw(47) << '|' << count << " place: " << *it << " |" << std::endl;
 			}
-			else
-			{
+			else {
 				std::cout << std::setw(47) << '|' << count << " place: " << *it << '|' << std::endl;
 			}
 		}
@@ -116,8 +115,8 @@ void PrintInterface(const Snake& h, char dflvl, std::vector<size_t>& records)
 	else if (dflvl == '3') { std::cout << std::setw(57) << "|difficulty level - hard|"; }
 	else if (dflvl == '`') { std::cout << std::setw(57) << "|difficulty level - SecretLvl|"; }
 	else { std::cout << std::setw(57) << "|difficulty level - default|"; };
-	if (records.empty()) { std::cout << "                        High score: 0" << std::endl; }
+	if (records.empty()) { std::cout << "                        High score: 0" << std::endl; } // crutch
 	else {
-		sort(records.begin(), records.end()); std::cout << "                        High score: " << records[records.size() - 1] << std::endl;
+		sort(records.begin(), records.end()); std::cout << "                        High score: " << records[records.size() - 1] << std::endl; // crutch
 	}
 }
