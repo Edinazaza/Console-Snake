@@ -96,11 +96,11 @@ void PrintGreeting(std::vector<size_t>& records)
     InvisibleCursor();
 }
 
-void PrintInstriuction()
+void PrintInstruction()
 {
     std::cout << std::endl
         << std::setw(97) << "#===================================================================================#" << std::endl
-        << std::setw(97) << "|                                    Instuction                                     |" << std::endl
+        << std::setw(97) << "|                                    Instruction                                    |" << std::endl
         << std::setw(97) << "|===================================================================================|" << std::endl
         << std::setw(97) << "|Use (a) to turn left and (d) to turn right, (w) turn up, (s) turn down, (r) restart|" << std::endl
         << std::setw(97) << "|         Symbols: (+) - head, (#) - body part, (@) - food, (&) - obstacle          |" << std::endl

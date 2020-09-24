@@ -8,6 +8,6 @@ void ChooseDifficulty(char dflvl);
 
 void PrintGreeting(std::vector<size_t>& records);
 
-void PrintInstriuction();
+void PrintInstruction();
 
 void PrintInterface(const Snake& h, char dflvl, std::vector<size_t>& records);
