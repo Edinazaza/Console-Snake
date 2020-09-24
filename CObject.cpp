@@ -7,8 +7,7 @@ void Food::Spawn(field& area)
 	while (true)
 	{
 		std::pair<size_t, size_t> cord = RandCoordinates((area.size() - 1));
-		if (area[cord.first][cord.second] == ' ')
-		{
+		if (area[cord.first][cord.second] == ' ') {
 			area[cord.first][cord.second] = food_;
 			existance = true;
 			break;
