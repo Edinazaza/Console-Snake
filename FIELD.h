@@ -5,7 +5,7 @@
 #include <conio.h>
 #include <windows.h>
 
-using field = std::vector<std::vector<char>>;
+typedef std::vector<std::vector<char>> field;
 
 field GenerateField(size_t X); // creating two-dimensional array(game field)
 void PrintGameField(const field& gameField);

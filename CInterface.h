@@ -6,7 +6,6 @@
 
 void ChooseDifficulty(char dflvl);
 
-
 void PrintGreeting(std::vector<size_t>& records);
 
 void PrintInstriuction();

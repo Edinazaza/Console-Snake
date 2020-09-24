@@ -1,6 +1,7 @@
 #pragma once
-#include "FIELD.h"
 #include <vector>
+
+typedef std::vector<std::vector<char>> field;
 
 class BodyPart
 {

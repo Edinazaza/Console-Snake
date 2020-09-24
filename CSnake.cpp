@@ -3,30 +3,26 @@
 #include "CSnake.h"
 #include <conio.h>
 
-
+// BODY PART
 void BodyPart::TurnLeft()
 {
-	if (direction == 0)
-	{
+	if (direction == 0) {
 		direction = 3;
 	}
-	else
-	{
+	else {
 		direction -= 1;
 	}
 }
 
 void BodyPart::TurnRight()
-	{
-		if (direction == 3)
-		{
-			direction = 0;
-		}
-		else
-		{
-			direction += 1;
-		}
+{
+	if (direction == 3)	{
+		direction = 0;
 	}
+	else {
+		direction += 1;
+	}
+}
 
 uint16_t BodyPart::GetX() const
 {
@@ -44,114 +40,106 @@ uint16_t BodyPart::GetDirection() const
 }
 
 void  BodyPart::MoveForward(field& area)
-	{
-		if (direction == 0) { SetCoordinate('X', -1, area); }	//  up
-		if (direction == 1) { SetCoordinate('Y', 1, area); }	// right
-		if (direction == 2) { SetCoordinate('X', 1, area); }	// down
-		if (direction == 3) { SetCoordinate('Y', -1, area); }	// left
-	}
+{
+	if (direction == 0) { SetCoordinate('X', -1, area); }	//  up
+	if (direction == 1) { SetCoordinate('Y', 1, area);  }	// right
+	if (direction == 2) { SetCoordinate('X', 1, area);  }	// down
+	if (direction == 3) { SetCoordinate('Y', -1, area); }	// left
+}
 
 void  BodyPart::SetCoordinate(const char coord, const int change, field& area)
-	{
-		if (X == 0 || Y == 0 || X == area.size() - 1 || Y == area.size() - 1)
-		{
-			area[X][Y] = '.';
+{
+	if (X == 0 || Y == 0 || X == area.size() - 1 || Y == area.size() - 1) {
+		area[X][Y] = '.';
+	}
+	else { 
+		area[X][Y] = ' '; 
+	}
+
+	if (coord == 'X') {
+		if (X == (area.size() - 1))	{
+			X = 1;
 		}
-		else { area[X][Y] = ' '; }
-		if (coord == 'X')
-		{
-			if (X == (area.size() - 1))
-			{
-				X = 1;
-			}
-			else if (X == 0)
-			{
-				X = area.size() - 2;
-			}
-			else
-			{
-				X += change;
-			}
-		}
-		else if (coord == 'Y')
-		{
-			if (Y == (area.size() - 1))
-			{
-				Y = 1;
-			}
-			else if (Y == 0)
-			{
-				Y = area.size() - 2;
-			}
-			else
-			{
-				Y += change;
-			}
-		}
-	}
-
-
-
-
-Head::Head() { };
-Head::Head(field& area)
-	{
-		direction = 0;
-		area[area.size() / 2][area.size() / 2] = '+';
-		X = (area.size() / 2), Y = (area.size() / 2);
-	}
-
-uint16_t Head::GetCount() const
-	{
-		return eaten_count;
-	}
-
-bool Head::GetIsDead() const
-	{
-		return isDead;
-	}
-
-
-bool Head::GetIsEat() const
-	{
-		return isEat;
-	}
-	
-void Head::Animation(field& area)
-	{
-		if (direction == 0) { area[X][Y] = '^'; }
-		else if (direction == 1) { area[X][Y] = '>'; }
-		else if (direction == 2) { area[X][Y] = 'v'; }
-		else if (direction == 3) { area[X][Y] = '<'; }
-	}
-
-void Head::Eat()
-	{
-		++eaten_count;
-		std::cout << char(7);
-	}
-
-void Head::SetCoordinate(const char coord, const int change, field& area)
-	{
-		BodyPart::SetCoordinate(coord, change, area);
-		if (area[X][Y] != '@')
-		{
-			isEat = false;
-			if (area[X][Y] == '&' || area[X][Y] == '#')
-			{
-				isDead = true;
-			}
-			else {
-				Animation(area);
-			}
+		else if (X == 0) {
+			X = area.size() - 2;
 		}
 		else {
-			isEat = true;
-			Eat();
+			X += change;
+		}
+	}
+	else if (coord == 'Y') {
+		if (Y == (area.size() - 1)) {
+			Y = 1;
+		}
+		else if (Y == 0) {
+			Y = area.size() - 2;
+		}
+		else {
+			Y += change;
+		}
+	}
+}
+
+// HEAD
+
+Head::Head() { };
+
+Head::Head(field& area)
+{
+	direction = 0;
+	area[area.size() / 2][area.size() / 2] = '+';
+	X = (area.size() / 2), Y = (area.size() / 2);
+}
+
+uint16_t Head::GetCount() const
+{
+	return eaten_count;
+}
+
+bool Head::GetIsDead() const
+{
+	return isDead;
+}
+
+bool Head::GetIsEat() const
+{
+	return isEat;
+}
+	
+void Head::Animation(field& area)
+{
+	if (direction == 0) { area[X][Y] = '^'; }
+	else if (direction == 1) { area[X][Y] = '>'; }
+	else if (direction == 2) { area[X][Y] = 'v'; }
+	else if (direction == 3) { area[X][Y] = '<'; }
+}
+
+void Head::Eat()
+{
+	++eaten_count;
+	std::cout << char(7);
+}
+
+void Head::SetCoordinate(const char coord, const int change, field& area)
+{
+	BodyPart::SetCoordinate(coord, change, area);
+	if (area[X][Y] != '@') {
+		isEat = false;
+		if (area[X][Y] == '&' || area[X][Y] == '#') {
+			isDead = true;
+		}
+		else {
 			Animation(area);
 		}
 	}
+	else {
+		isEat = true;
+		Eat();
+		Animation(area);
+	}
+}
 
+// TAIL
 
 Tail::Tail() {};
 
